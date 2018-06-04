@@ -45,10 +45,10 @@ class ResultPrinter extends \PHPUnit\TextUI\ResultPrinter
      * {@inheritdoc}
      */
     public function __construct(
-        $out = NULL,
-        $verbose = FALSE,
+        $out = null,
+        $verbose = false,
         $colors = self::COLOR_DEFAULT,
-        $debug = FALSE,
+        $debug = false,
         $numberOfColumns = 80,
         $reverse = false
     ) {
@@ -76,11 +76,9 @@ class ResultPrinter extends \PHPUnit\TextUI\ResultPrinter
      */
     protected function writeProgress($progress): void
     {
-        if($this->debug) {
+        if ($this->debug) {
             parent::writeProgress($progress);
-            return;
         }
-
         $this->scoreboard->score($progress);
     }
 
@@ -95,7 +93,6 @@ class ResultPrinter extends \PHPUnit\TextUI\ResultPrinter
             }
             $this->scoreboard->stop();
         }
-
         parent::printHeader();
     }
 
@@ -106,53 +103,49 @@ class ResultPrinter extends \PHPUnit\TextUI\ResultPrinter
     {
         if ($this->debug) {
             parent::addError($test, $e, $time);
-            return;
         }
 
         $this->writeProgress('fail');
-        $this->lastTestFailed = TRUE;
+        $this->lastTestFailed = true;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function addFailure(Test $test, AssertionFailedError $e, float $time): void
+    public function addFailure(Test $test, AssertionFailedError $e, $time): void
     {
         if ($this->debug) {
             parent::addFailure($test, $e, $time);
-            return;
         }
 
         $this->writeProgress('fail');
-        $this->lastTestFailed = TRUE;
+        $this->lastTestFailed = true;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function addIncompleteTest(Test $test, \Throwable $e, float $time): void
+    public function addIncompleteTest(Test $test, \Throwable $e, $time): void
     {
         if ($this->debug) {
             parent::addIncompleteTest($test, $e, $time);
-            return;
         }
 
         $this->writeProgress('pending');
-        $this->lastTestFailed = TRUE;
+        $this->lastTestFailed = true;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function addSkippedTest(Test $test, \Throwable $e, float $time): void
+    public function addSkippedTest(Test $test, \Throwable $e, $time): void
     {
         if ($this->debug) {
             parent::addSkippedTest($test, $e, $time);
-            return;
         }
 
         $this->writeProgress('pending');
-        $this->lastTestFailed = TRUE;
+        $this->lastTestFailed = true;
     }
 
     /**
@@ -162,7 +155,6 @@ class ResultPrinter extends \PHPUnit\TextUI\ResultPrinter
     {
         if ($this->debug) {
             parent::startTestSuite($suite);
-            return;
         }
 
         if ($this->numTests == -1) {
@@ -178,7 +170,6 @@ class ResultPrinter extends \PHPUnit\TextUI\ResultPrinter
     {
         if ($this->debug) {
             parent::endTest($test, $time);
-            return;
         }
 
         if (!$this->lastTestFailed) {
@@ -189,6 +180,6 @@ class ResultPrinter extends \PHPUnit\TextUI\ResultPrinter
             $this->numAssertions += $test->getNumAssertions();
         }
 
-        $this->lastTestFailed = FALSE;
+        $this->lastTestFailed = false;
     }
 }
